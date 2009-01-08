@@ -1,0 +1,34 @@
+<div id="ajaxfeed">
+
+    <script src="http://www.google.com/jsapi/?key={{BLOG.google_ajax_feed_key}}"
+            type="text/javascript"></script>
+    <script src="http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js"
+            type="text/javascript"></script>
+
+    <style type="text/css">
+        @import url( "http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.css" );
+    </style>
+    <script type="text/javascript">
+        function load() {
+            var options = {
+               numResults : {{BLOG.google_ajax_feed_result_num}},
+               displayTime : 5000,
+               linkTarget : google.feeds.LINK_TARGET_BLANK,
+               stacked : true,
+               title : '{{BLOG.google_ajax_feed_title}}'
+             };
+            var feeds = [
+                {%for feed in feeds%}
+             {title:'{{feed.title}}',
+              url:'{{feed.feed}}'}
+                 {% if not forloop.last %},{% endif %}
+                 {%endfor%}
+             ];
+            new GFdynamicFeedControl(feeds, "feedControl",options);
+        }
+        google.load("feeds", "1");
+        google.setOnLoadCallback(load);
+    </script>
+    <h3>My Feeds</h3>
+    <div id="feedControl">Loading...</div>
+</div>

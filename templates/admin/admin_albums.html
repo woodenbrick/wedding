@@ -1,0 +1,35 @@
+<fieldset id="admin_albums">
+    <legend>Albums Admin</legend>
+    <div class="fieldsetdiv">
+        Album List:<br>
+        <small>Tips:you can double-click the "Add" column in the table header to add a new record.</small><br>
+        <small>You can access your albums from the path:"/albums", so we recommend you to add a menu of "/albums" in the pages tab.</small>    
+        <div id="albumdiv">
+        <table id="albumtable">
+            <thead><tr>
+                <th>Picasaweb</th>
+                <th>Access(picasaweb)</th>
+                <th>Order</th>
+                <th>Valid</th>
+                <th>Id</th>
+                <th></th>
+                <th></th>
+            </tr></thead>
+            <tbody>
+            {% for album in albums %}
+            <tr>
+                <td>{{album.album_username}}</td>
+                <td>{{album.album_type}}</td>
+                <td>{{album.order}}</td>
+                <td>{{album.valid}}</td>
+                <td>{{album.key.id}}</td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            {% endfor%}
+            </tbody>
+        </table>
+       </div>
+    </div>
+</fieldset>
+

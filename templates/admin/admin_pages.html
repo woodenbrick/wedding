@@ -1,0 +1,66 @@
+<fieldset>
+    <legend>Pages Admin</legend>
+    <div class="fieldsetdiv">
+        Page List:
+        <table id="pagetable">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>Permalink</th>
+                <th> &nbsp;</th>
+            </tr>
+            {% for entry in pages %}
+            <tr>
+                <td>{{entry.title}}</td>
+                <td>{{entry.author.email}}</td>
+                <td>{{entry.date|date:"m/d/y"}}</td>
+                <td>
+                    <a href="{{entry.full_permalink}}" target="_blank">{{entry.full_permalink}}</a>
+                </td>
+                <td>
+                    <a href='/edit/blog/{{entry.key.id}}' target="_blank">edit</a> &nbsp;
+                    <a href='/delete/blog/{{entry.key.id}}' target="_blank">delete</a>
+                </td>
+            </tr>
+            {% endfor%}
+        </table>
+    </div>
+</fieldset>
+<fieldset id="admin_menus">
+    <legend>Menu Admin</legend>
+    <div class="fieldsetdiv">
+        Menu List:<br>
+        <small>Tips:you can double-click the "Add" column in the table header to add a new record.</small>  <br>
+        <small>For example: If you want to add a menu "/albums" for system album feature, just add a new record and then set the valid to true.</small> 
+            <div id="menudiv">
+            <table id="menutable">
+                <thead><tr>
+                    <th>Title</th>
+                    <th>Permalink</th>
+                    <th>Target</th>
+                    <th>Order</th>
+                    <th>Valid</th>
+                    <th>Id</th>
+                    <th>Delete</th>
+                    <th>Add</th>
+                </tr></thead>
+                <tbody>
+                {% for entry in menus %}
+                <tr id="menu_{{entry.key.id}}">
+                    <td>{{entry.title}}</td>
+                    <td>{{entry.permalink}}</td>
+                    <td>{{entry.target}}</td>
+                    <td>{{entry.order}}</td>
+                    <td>{{entry.valid}}</td>
+                    <td>{{entry.key.id}}</td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+                {% endfor%}
+                </tbody>
+            </table>
+            </div>
+    </div>
+</fieldset>
+

@@ -1,0 +1,125 @@
+<fieldset id="admin_system">
+    <legend>System configuration</legend>
+    <div class="fieldsetdiv">
+    <form method=post id="configForm" name="configForm">
+    <table cellspacing="0" class="yui-skin-sam" id="configuration">
+        <tr>
+            <th><label for="title">Blog Title:</label></th>
+            <td>
+              <input id="title"  name="title" size="30" type="text" value="{{BLOG.title}}" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="author">Author:</label></th>
+            <td>
+                <input id="author"  name="author" size="15" type="text" value="{{BLOG.author}}" />
+                  </td>
+        </tr>
+        <tr>
+            <th><label>Email:</label></th>
+            <td> <i><b>{{user.email}}</b></i> <img src="{{user_gravatar_url}}" style="width:16px;height:16px">
+                <p><small>If you see a <img src="/img/anonymous-16.jpg" style="width:8px;height:8px"> above it means you either don't have a Gravatar for that email
+                   address or it is not rated G. <a target="_blank" href="http://site.gravatar.com/">Get one for free at gravatar.com</a>.</small></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="description">Blog Description:</label></th>
+            <td><input id="description" name="description" size="60" type="text" value="{{BLOG.description}}" /> </td>
+        </tr>
+        <tr>
+            <th><label for="root_url">Root URL:</label></th>
+            <td>
+                <input id="root_url" name="root_url" size="30" type="text" value="{{BLOG.root_url}}" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="logo_images">Logo images:</label></th>
+            <td>
+                <input type="hidden" id="logo_images_space" name="logo_images_space"/>
+                <textarea id="logo_images" name="logo_images"  rows="4" cols="50" style="">{% for logo in logoImages %}{{logo}}{% if not forloop.last %} {% endif %}{% endfor %}</textarea>
+                <p><small>Separate logo image urls with commas and/or newlines. These images will randomly display on the site.</small></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="num_post_per_page">Posts num per page:</label></th>
+            <td>
+                <input id="num_post_per_page" name="num_post_per_page" maxlength="15" size="15" type="text" value="{{BLOG.num_post_per_page}}" />
+                <p><small>This number is used for the pagination.</small></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="cache_time">Page Cache Time:</label></th>
+            <td>
+                <input id="cache_time" name="cache_time" maxlength="15" size="15" type="text" value="{{BLOG.cache_time}}" />
+                <p><small>Be careful! This value will make your page unchanging for the specified time.</small></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="debug">Debug Mode:</label></th>
+            <td>
+                <input id="debug" name="debug" type="checkbox" {% if BLOG.debug %} checked {% endif %}/>
+                <p><small>You can get more detailed log info in appengine when enable debug mode.</small></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="recaptcha_enable">Recaptcha enable:</label></th>
+            <td>
+                <input id="recaptcha_enable" name="recaptcha_enable"  onclick="checkRecaptcha()" type="checkbox" {% if BLOG.recaptcha_enable %} checked {% endif %}/>
+                <p><small>reCAPTCHA is a free CAPTCHA service that helps to enable anti-spam for the post's comment.  </small></p>
+                <p><small>You can get reCAPTCHA for free from: <a href="http://recaptcha.net/">http://recaptcha.net/</a>. </small></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="recaptcha_public_key">Recaptcha public key:</label></th>
+            <td>
+                <input id="recaptcha_public_key" name="recaptcha_public_key"  size="60" type="text" value="{{BLOG.recaptcha_public_key}}"/>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="recaptcha_private_key">Recaptcha private key:</label></th>
+            <td>
+                <input id="recaptcha_private_key" name="recaptcha_private_key"  size="60" type="text" value="{{BLOG.recaptcha_private_key}}"/>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="delicious_enable">del.icio.us enable:</label></th>
+            <td>
+                <input id="delicious_enable" name="delicious_enable" onclick="checkDelicious()" type="checkbox" {% if BLOG.delicious_enable %} checked {% endif %}/>
+                <p><small>Delicious is a Social Bookmarking service. </small></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="delicious_username">del.icio.us username:</label></th>
+            <td>
+                <input id="delicious_username" name="delicious_username"  size="15" type="text" value="{{BLOG.delicious_username}}"/>
+                <small>You can get del.icio.us for free from: <a href="http://delicious.com/">http://delicious.com/</a> </small>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="google_ajax_feed_enable">Feed control enable:</label></th>
+            <td>
+                <input id="google_ajax_feed_enable" name="google_ajax_feed_enable" onclick="checkGoogleAjaxFeed()"  type="checkbox"  {% if BLOG.google_ajax_feed_enable %} checked {% endif %}/>
+                <small>Enable feed control on your site.</small>
+                <p><small>You can manage your feeds on the Feeds tab.</small></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="google_ajax_feed_title">Feed control main title:</label></th>
+            <td>
+                <input id="google_ajax_feed_title" name="google_ajax_feed_title"  size="30" type="text" value="{{BLOG.google_ajax_feed_title}}"/>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="google_ajax_feed_result_num">Result num per feed:</label></th>
+            <td>
+                <input id="google_ajax_feed_result_num" name="google_ajax_feed_result_num" maxlength="15" size="15" type="text" value="{{BLOG.google_ajax_feed_result_num}}"/>
+            </td>
+        </tr>
+        <tr>
+            <th> </th>
+            <td><input name="commit" type="button" value="Save" onclick="saveConfiguration()"/></td>
+        </tr>
+    </table>
+    </form>
+    </div>
+</fieldset>
