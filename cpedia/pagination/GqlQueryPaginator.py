@@ -29,23 +29,22 @@ class GqlQueryPaginator(Paginator):
     Query the data for each page to resolve the performance issue of mass records.
     """
     def __init__(self, gqlQuery,page_number,per_page, orphans=0, allow_empty_first_page=True):
-        self.gqlQuery = gqlQuery
+        self.count_ = int(gqlQuery.count()) ##todo:google GqlQuery has 1000 records limit.
         self.number = page_number
         bottom = (self.number - 1) * per_page
         self.object_list = gqlQuery.fetch(per_page,bottom)
         Paginator.__init__(self, self.object_list, per_page, orphans, allow_empty_first_page)
 
+
+    def _get_count(self):
+        "Returns the total number of objects, across all pages."
+        return self.count_
+    count = property(_get_count)
+    
     def page(self):
         "Returns a Page object for the given 1-based page number."
         number = self.validate_number(self.number)
         return GqlPage(self.object_list, number, self)
-
-    def _get_count(self):
-        "Returns the total number of objects, across all pages."
-        if self._count is None:
-            self._count =self.gqlQuery.count() ##todo:google GqlQuery has 1000 records limit.
-        return self._count
-    count = property(_get_count)
 
 
 class GqlPage(Page):
