@@ -39,6 +39,9 @@ class Tag(db.Model):
     entrycount = db.IntegerProperty(default=0)
     valid = db.BooleanProperty(default = True)
 
+class Song(db.Model):
+    title = db.StringProperty()
+    artist = db.StringProperty()
 
 class Weblog(db.Model):
     permalink = db.StringProperty()

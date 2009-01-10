@@ -40,6 +40,7 @@ from cpedia.pagination.paginator import InvalidPage,Paginator
 from cpedia.util import translate
 
 from model import Archive,Weblog,WeblogReactions
+from model import Song
 import authorized
 import view
 import util
@@ -108,6 +109,19 @@ class PageHandle(BaseRequestHandler):
       }
     self.generate('blog_main.html',template_values)
 
+
+class MusicRequests(BaseRequestHandler):
+  def get(self):
+    query = Song.all()
+    results = query.fetch(10)
+    template_values = { 'songs' : results }
+    self.generate('recentrequests.html', template_values)
+
+class AddMusicRequest(BaseRequestHandler):
+  def post(self):
+    song = Song(artist=self.request.get('artist'), title=self.request.get('title'))
+    song.put()
+    self.redirect('/')
 
 class AddBlog(BaseRequestHandler):
   @authorized.role("admin")
