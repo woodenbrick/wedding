@@ -12,7 +12,7 @@ a:link, a:visited {color: #555; border-bottom: 1px solid #555;}
 html body a:hover {color: #000; background-color: #F4F2E4; border-bottom: 1px solid #9A8E51;}
 .img a,.img a:hover ,.img a:link ,.img a:visited {border-bottom:none !important;background-color:inherit!important;border-bottom-width: 0!important;color:inherit;!important}
 
-
+table { cell-spacing: 10px; cell-padding:10px; padding:10px; spacing:10px}
 #sidebar a:link,.post-title a:link, .post-title a:visited, .byline a:link, .byline a:visited{border-bottom-width: 0;}
 #sidebar a:hover,.post-title a:hover, .byline a:hover {border-bottom-width: 1px;}
 
@@ -21,7 +21,7 @@ ul, ol {list-style-image:none;list-style-position:outside;list-style-type:none;}
 dt {font:bold}
 
 .error{background:#F8F7EF none repeat scroll 0% 0%;border-color:red;border-style:none none none solid;border-width:medium medium medium 4px;margin:10px 0pt;padding-bottom:10px;padding-left:10px;font-weight:bold;}
-
+.errormusic{font-size: large; color: red}
 #title a, #title a:hover, #title a:link, #title a:visited {border:none !important;background-color: inherit!important;border-bottom:none!important;text-decoration:none;font-size:2.4em!important;}
 #pagination a:hover, #pagination a:link, #pagination a:visited {background-color: inherit!important;border-bottom:1px solid #CEDEF7!important;text-decoration:none;}
 
@@ -37,7 +37,7 @@ dt {font:bold}
 
 #footer{margin-top:20px;margin-bottom:20px;height: 2.5em; background: #FBFAF4;overflow: hidden;min-width: 750px;}
 #admincontainer fieldset{margin-bottom:20px!important;padding-bottom:20px;border:1px solid #cccccc!important;}
-
+#musiccontainer { margin: 10px!important; padding:20px}
 .submit{margin-top:10px;margin-bottom:10px; border:1px solid #cccccc;background-color:#cccccc;}
 
 #admincontainer .fieldsetdiv{padding-left:10px;padding-top:5px;padding-right:10px}
@@ -134,3 +134,4 @@ html>body .album_thumbnail{display:table;float:left}/*for mozilla */
 #recaptcha{margin-bottom:0!important;padding:0}
 #recaptcha div{margin-bottom:0!important;padding:0}
 #recaptcha a, #recaptcha a.link, #recaptcha a.visited{border-bottom:none!important;}
+

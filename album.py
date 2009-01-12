@@ -91,8 +91,8 @@ class BaseRequestHandler(webapp.RequestHandler):
 class MainPage(BaseRequestHandler):
   def get(self):
     usernames = util.getAlbumList()
-    if usernames:
-        defaultAlbum = usernames[0]
+    if usernames and usernames.count() > 0  :
+        defaultAlbum = usernames.get()
         album_username = defaultAlbum.album_username
         feed = self.getAlbumFeedEntry(defaultAlbum.album_username)
         template_values = self.validatorFeedAndReturnTemplate(feed,album_username,usernames)

@@ -36,8 +36,10 @@ def main():
     cpedialog = util.getCPedialog()
     application = webapp.WSGIApplication(
                                        [
-                                        ('/songrequest', blog.AddMusicRequest),
                                         ('/create/(blog|page)/*$', blog.AddBlog),
+                                        ('/musicrequest', blog.MusicRequest),
+                                        ('/addmusic', blog.NewMusicRequest),
+                                        #('/clearrequests', blog.ClearMusic),
                                         ('/addBlogReaction', blog.AddBlogReaction),
                                         ('/edit/(blog|page)/(.*)/*$', blog.EditBlog),
                                         ('/delete/(blog|page)/(.*)/*$', blog.DeleteBlog),

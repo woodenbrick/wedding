@@ -34,14 +34,15 @@ class Archive(db.Model):
     weblogcount = db.IntegerProperty(default=0)
     date = db.DateTimeProperty(auto_now_add=True)
 
+class Song(db.Model):
+    title = db.StringProperty()
+    artist = db.StringProperty()
+    
 class Tag(db.Model):
     tag = db.StringProperty(multiline=False)
     entrycount = db.IntegerProperty(default=0)
     valid = db.BooleanProperty(default = True)
 
-class Song(db.Model):
-    title = db.StringProperty()
-    artist = db.StringProperty()
 
 class Weblog(db.Model):
     permalink = db.StringProperty()

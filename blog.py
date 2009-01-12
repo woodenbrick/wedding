@@ -39,8 +39,8 @@ from cpedia.pagination.GqlQueryPaginator import GqlQueryPaginator,GqlPage
 from cpedia.pagination.paginator import InvalidPage,Paginator
 from cpedia.util import translate
 
-from model import Archive,Weblog,WeblogReactions
 from model import Song
+from model import Archive,Weblog,WeblogReactions
 import authorized
 import view
 import util
@@ -110,19 +110,38 @@ class PageHandle(BaseRequestHandler):
     self.generate('blog_main.html',template_values)
 
 
-class MusicRequests(BaseRequestHandler):
+class MusicRequest(BaseRequestHandler):
   def get(self):
-    query = Song.all()
-    results = query.fetch(10)
-    template_values = { 'songs' : results }
-    self.generate('recentrequests.html', template_values)
-
-class AddMusicRequest(BaseRequestHandler):
+    songs = Song.all()
+    template_values = {'songs' : songs, 'heading' : 'This is the title'}
+    if self.request.get('error') == '1':
+      template_values['error'] = 'At the very least, I need the title of the song, or an artist.'
+    self.generate('music.html', template_values)
+    
+class NewMusicRequest(BaseRequestHandler):
   def post(self):
-    song = Song(artist=self.request.get('artist'), title=self.request.get('title'))
-    song.put()
-    self.redirect('/')
-
+    artist = cgi.escape(self.request.get('artist'))
+    title = cgi.escape(self.request.get('title'))
+    if title == '' and artist == '':
+      self.redirect('/musicrequest?error=1')
+    else:
+      if title == '':
+        title = 'Any song'
+      elif artist == '':
+        artist = 'Unknown artist'
+      song = Song(artist=artist, title=title)
+      song.put()
+      self.redirect('/musicrequest')
+    
+class ClearMusic(BaseRequestHandler):
+  def get(self):
+    #the only purpose of this is to clear all music
+    #should be disabled except when debugging
+    songs = Song.all()
+    for song in songs:
+      song.delete()
+    self.redirect('/musicrequest')
+    
 class AddBlog(BaseRequestHandler):
   @authorized.role("admin")
   def get(self,entrytype):

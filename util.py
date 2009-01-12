@@ -68,7 +68,7 @@ def getArchiveList():
     except Exception:
         monthlist = None
     if monthlist is None:
-        monthlist = Archive.gql('ORDER BY date desc').fetch(100)
+        monthlist = Archive.all().order('-date')
         memcache.add(key=key_, value=monthlist, time=3600)
     else:
         logging.debug("getMonthYearList from cache. ")
@@ -121,7 +121,7 @@ def getBlogPagination(page):
     except Exception:
         obj_pages = None
     if obj_pages is None or page not in obj_pages:
-        blogs_query = Weblog.gql('WHERE entrytype=:1 ORDER BY date desc','post')
+        blogs_query = Weblog.all().filter('entrytype','post').order('-date')
         try:
             cpedialog = getCPedialog()
             obj_page  =  GqlQueryPaginator(blogs_query,page,cpedialog.num_post_per_page).page()
@@ -146,6 +146,7 @@ def getArchiveBlog(monthyear):
     except Exception:
         blogs = None
     if blogs is None:
+        #blogs = Weblog.all().filter('monthyear', monthyearTmp).filter('entrytype','post').order('-date')
         blogs = db.GqlQuery("select * from Weblog where monthyear=:1 and entrytype = 'post'order by date desc",monthyearTmp).fetch(100)
         memcache.add(key=key_, value=blogs, time=3600)
     else:
@@ -160,7 +161,7 @@ def getMenuList():
     except Exception:
         menus = None
     if menus is None:
-        menus = Menu.gql('WHERE valid =:1  ORDER BY order',True).fetch(100)
+        menus = Menu.all().filter('valid',True).order('order')
         memcache.add(key=key_, value=menus, time=3600)
     else:
         logging.debug("getMenuList from cache. ")
@@ -174,7 +175,7 @@ def getAlbumList():
     except Exception:
         menus = None
     if menus is None:
-        menus = Album.gql('WHERE valid =:1 ORDER BY order desc',True).fetch(100)
+        menus = Album.all().filter('valid',True).order('-order')
         memcache.add(key=key_, value=menus, time=3600)
     else:
         logging.debug("getAlbumList from cache. ")
@@ -188,7 +189,7 @@ def getTagList():
     except Exception:
         tags = None
     if tags is None:
-        tags = Tag.gql('WHERE valid =:1 ORDER BY tag',True).fetch(1000)
+        tags = Tag.all().filter('valid',True).order('tag')
         memcache.add(key=key_, value=tags, time=3600)
     else:
         logging.debug("getTagList from cache. ")
@@ -203,7 +204,7 @@ def getFeedList():
     except Exception:
         feeds = None
     if feeds is None:
-        feeds = Feeds.gql('WHERE valid =:1 ORDER BY order',True).fetch(100)
+        feeds = Feeds.all().filter('valid',True).order('order')
         memcache.add(key=key_, value=feeds, time=3600)
     else:
         logging.debug("getFeedList from cache. ")
@@ -218,8 +219,10 @@ def getCPedialog():
     except Exception:
         cpedialog = None
     if cpedialog is None:
-        cpedialog = CPediaLog().gql("WHERE default =:1",True).get()
-        if cpedialog is None:
+        cpedialogs = CPediaLog().all().filter("default",True)
+        if cpedialogs.count() > 0 :
+            cpedialog = cpedialogs.get()
+        else:
             cpedialog = CPediaLog()
         memcache.add(key=key_, value=cpedialog, time=36000)            
     else:

@@ -1,13 +1,6 @@
 <div id="tagclound">
-    <h3>Tag Clound</h3>
     <div>
-        <span class="tagheader">My Blog Tags</span>
 
-        <div class="cloud">
-            {%for tag in tags%}
-            <a href="/tag/{{tag.tag|unquote}}"  class="tag{{tag.entrycount}}">{{tag.tag|unquote}}</a>
-            {% endfor%}
-        </div>
     </div>
     {% if BLOG.delicious_enable %}
     <div id="delicious">
