@@ -105,7 +105,7 @@ dt {font:bold}
 #archives{border-bottom: 1px dotted #cccccc;padding-top:10px}
 #google_ad{padding-top:10px;padding-left:5px}
 
-#logo {background: #efefef;  border: 1px #cccccc solid; height: 148px;  text-align: right;  padding-top: 2px;  padding-right: 5px;}
+#logo {background: #efefef;  border: 1px #cccccc solid; height: 148px; width: 694px;  text-align: right;  padding-top: 2px;  padding-right: 5px;}
 #bloglist{ background: url(/img/threecolbg.gif) right repeat-y; padding-right:10px;padding-left:10px}
 
 #blogview{padding-top:10px; padding-right:10px;padding-left:10px;border: 1px #cccccc solid;}
