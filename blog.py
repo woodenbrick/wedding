@@ -47,7 +47,6 @@ import util
 
 from recaptcha.client import captcha
 
-
 class BaseRequestHandler(webapp.RequestHandler):
   """Supplies a common template generation function.
 
@@ -112,8 +111,9 @@ class PageHandle(BaseRequestHandler):
 
 class MusicRequest(BaseRequestHandler):
   def get(self):
-    songs = Song.all()
-    template_values = {'songs' : songs, 'heading' : 'This is the title'}
+    songs = Song.all().order('-date')
+    songlist = songs.fetch(20)
+    template_values = {'songs' : songlist, 'heading' : 'This is the title'}
     if self.request.get('error') == '1':
       template_values['error'] = 'At the very least, I need the title of the song, or an artist.'
     self.generate('music.html', template_values)
@@ -122,16 +122,52 @@ class NewMusicRequest(BaseRequestHandler):
   def post(self):
     artist = cgi.escape(self.request.get('artist'))
     title = cgi.escape(self.request.get('title'))
+    requested_by = cgi.escape(self.request.get('requested_by'))
     if title == '' and artist == '':
       self.redirect('/musicrequest?error=1')
     else:
+      #lets check last.fm for this song
+      search_lastfm = True
       if title == '':
         title = 'Any song'
+        search_lastfm = False
       elif artist == '':
         artist = 'Unknown artist'
-      song = Song(artist=artist, title=title)
+      if requested_by == '':
+        requested_by = 'Anonymous'
+        search_lastfm = False
+      #if search_lastfm:
+      #  song_url = self.get_song_url(title, artist)
+      song = Song(artist=artist, title=title, requested_by = requested_by)#, url=song_url)
       song.put()
       self.redirect('/musicrequest')
+      
+  def get_song_url(self, title, artist):
+    import BeautifulSoup
+    import urllib
+    import urllib2
+    from google.appengine.api import urlfetch
+    root_url = "http://ws.audioscrobbler.com/2.0/?"
+    url_data = {'method' : 'track.search',
+                'track' : title,
+                'api_key' : '2d21a4ab6f049a413eb27dbf9af10579', 'artist' : artist}
+    encoded_data = urllib.urlencode(url_data)
+    search = root_url + encoded_data
+    url = urlfetch.fetch(search)
+    
+    print url.content
+    
+    #handler = urlfetch.fetch(url=root_url, payload=url_data,
+    #                         method = urlfetch.GET)
+    handle = urllib.urlopen(root_url)
+    #print handler.status_code
+    #if handler.status_code == 200:
+    if True:
+      wanted = ['url']
+      parser = xmlparser.XML_Parser(handler, wanted)
+      parser.run_iterator()
+      url = parser.collected[0]
+      return url
     
 class ClearMusic(BaseRequestHandler):
   def get(self):

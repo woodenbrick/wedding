@@ -37,6 +37,9 @@ class Archive(db.Model):
 class Song(db.Model):
     title = db.StringProperty()
     artist = db.StringProperty()
+    date = db.DateTimeProperty(auto_now=True)
+    requested_by = db.StringProperty()
+    #url = db.StringProperty()
     
 class Tag(db.Model):
     tag = db.StringProperty(multiline=False)
