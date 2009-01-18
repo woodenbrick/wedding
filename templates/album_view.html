@@ -52,10 +52,10 @@
                 </td>
                  <td>
                  {% if current_votes %}
-                 
+                 <h1>Current votes:</h1>
                  {% for vote in current_votes %}
                  {% ifequal vote.photo_url photo.content.src %}
-                 <h1>Current votes:</h1>
+                 
                  {{vote.voter}} : {{vote.vote}}<br />
                  {% endifequal %}
                  {% endfor %}
