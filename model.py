@@ -41,6 +41,20 @@ class Song(db.Model):
     requested_by = db.StringProperty()
     #url = db.StringProperty()
     
+class BridesMaidPhoto(db.Model):
+    #id = db.IntegerProperty()
+    photo_url = db.StringProperty()
+
+
+class BridesMaidVotes(db.Model):
+    voter = db.StringProperty()
+    photo_url = db.StringProperty()
+    vote = db.IntegerProperty()
+    
+class BridesMaidRating(db.Model):
+    photo_url = db.StringProperty()
+    rating = db.StringProperty()
+    
 class Tag(db.Model):
     tag = db.StringProperty(multiline=False)
     entrycount = db.IntegerProperty(default=0)

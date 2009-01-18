@@ -44,7 +44,7 @@ import view
 import util
 
 from model import Album
-
+import model
 import gdata.urlfetch
 gdata.service.http_request_handler = gdata.urlfetch
 
@@ -155,12 +155,17 @@ class AlbumHandler(BaseRequestHandler):
             if album_.name.text == album_name:
                 album = album_
                 break
-
+        
+        current_votes = model.BridesMaidVotes.all()
+        rating = model.BridesMaidRating.all()
+        
         template_values = {
           'photos': feed_photos.entry,
           'album': album,
           'username':username,
           'album_name':album_name,
+          'current_votes':current_votes,
+          'overall_rating':rating,
           }
         self.generate('album_view.html',template_values)
 

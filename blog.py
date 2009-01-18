@@ -40,6 +40,7 @@ from cpedia.pagination.paginator import InvalidPage,Paginator
 from cpedia.util import translate
 
 from model import Song
+import model
 from model import Archive,Weblog,WeblogReactions
 import authorized
 import view
@@ -109,11 +110,65 @@ class PageHandle(BaseRequestHandler):
     self.generate('blog_main.html',template_values)
 
 
+class AddNewPhotos(BaseRequestHandler):
+  """For admin to upload new images"""
+  def get(self):
+    photos = model.BridesMaidPhoto().all().order('date')
+    self.response.headers['Content-Type'] = "image/png"
+    #self.response.out.write(photos.photo)
+    template_values = {'photos' : photos }
+    self.generate('admin_upload_dress.html', template_values)
+  
+  def post(self):
+    photo = self.request.get('image')
+    new_photo = model.BridesMaidPhoto()
+    new_photo.photo = db.Blob(photo)
+    new_photo.put()
+    self.redirect('/admin_upload_dress')
+
+class BridesMaid(BaseRequestHandler):
+  #img will be stored in /imgs/photo_id
+  pass
+class BridesMaidVote(BaseRequestHandler):
+  def post(self):
+    voter = self.request.get('voter')
+    vote = self.request.get('vote')
+    url = self.request.get('photo_url')
+    new_vote = model.BridesMaidVotes.all().filter('voter =', voter).filter('photo_url', url).get()    
+    new_avg = model.BridesMaidRating.all().filter('photo_url', url).get()
+    
+    if new_vote is None:
+      new_vote = model.BridesMaidVotes()
+      new_vote.photo_url = url    
+    new_vote.voter = voter
+    new_vote.vote = int(vote)
+    new_vote.put()
+    
+    if new_avg is None:
+      new_avg = model.BridesMaidRating()
+      new_avg.photo_url = url
+      new_avg.rating = vote
+      new_avg.put()
+    else:
+      num_votes = model.BridesMaidVotes.all().filter('photo_url', url)
+      vot = 0.0
+      t = 0.0
+      for n in num_votes:
+        self.response.out.write(str(n.vote))
+        vot +=1
+        t += n.vote
+      
+      new_avg.rating = str(round(t / vot, 2))
+      new_avg.put()
+
+    
+    self.redirect('/albums/boryana.daniel.wedding/BridesmaidDresses')
+
 class MusicRequest(BaseRequestHandler):
   def get(self):
     songs = Song.all().order('-date')
     songlist = songs.fetch(20)
-    template_values = {'songs' : songlist, 'heading' : 'This is the title'}
+    template_values = {'songs' : songlist, 'heading' : 'Song Request'}
     if self.request.get('error') == '1':
       template_values['error'] = 'At the very least, I need the title of the song, or an artist.'
     self.generate('music.html', template_values)

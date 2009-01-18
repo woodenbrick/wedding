@@ -25,7 +25,7 @@
                 {% endfor %}
             </select>
         <p>
-            Here are the album list of user {{username}}:
+            Here are {{username}}'s albums:
     </div>
     <div id="albums">
         {% for album in albums %}
@@ -43,6 +43,7 @@
          </div>
         {% endfor %}
     </div>
+
     {%endif %}
 </div>
 {% endblock %}

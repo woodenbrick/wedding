@@ -20,7 +20,7 @@
     <div id="albums">
     <table cellspacing="0" border="0" id="albumsTable">
     {% for photo in photos %}
-        {% if forloop.counter0|divisibleby:"4"  or forloop.first %}
+        {% if forloop.counter0|divisibleby:"1"  or forloop.first %}
         <tr>
         {% endif %}
         <td>
@@ -29,10 +29,50 @@
                  <a href="{{photo.content.src}}?imgmax=800" rel="lightbox[roadtrip]" onFocus='this.blur()'>
                     <img src="{{thumbnail.url}}" onmouseover="{this.style.border='1px solid #000066'}" onmouseout="{this.style.border='1px solid #CCCCCC'}"/>
                  </a>
+                 </td><td>Vote!
+                 <form action='/bridesmaidsvote' method='post'>
+                    <select name='voter'>
+                        <option value='Tilly'>Tilly</option>
+                        <option value='Lily'>Lily</option>
+                        <option value='Buzz'>Buzz</option>
+                        <option value='Daisy'>Daisy</option>
+                        <option value='Kamelia'>Kamelia</option>
+                    </select>
+                    <br />
+                    <select name='vote'>
+                        <option value=5>5</option>
+                        <option value=4>4</option>
+                 <option value=3>3</option>
+                 <option value=2>2</option>
+                 <option value=1>1</option>
+                 
+                 <input type='HIDDEN' name='photo_url' value='{{photo.content.src}}'>
+                    <input type='submit' value='Vote'>
+                </form>
+                </td>
+                 <td>
+                 {% if current_votes %}
+                 
+                 {% for vote in current_votes %}
+                 {% ifequal vote.photo_url photo.content.src %}
+                 <h1>Current votes:</h1>
+                 {{vote.voter}} : {{vote.vote}}<br />
+                 {% endifequal %}
+                 {% endfor %}
+                 {% endif %}
+                 </td>
+                 
+                 {% for rating in overall_rating %}
+                 {% ifequal photo.content.src rating.photo_url %}
+                 <td><h1>Overall Rating:</h1>
+                 {{rating.rating}}
+                 </td>
+                 {% endifequal %}
+                 {% endfor %}
                  {% endifequal %}
              {% endfor %}
         </td>
-        {% if forloop.counter|divisibleby:"4" or forloop.last%}
+        {% if forloop.counter|divisibleby:"1" or forloop.last%}
           </tr>
         {% endif %}
     {% endfor %}
