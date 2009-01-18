@@ -40,7 +40,7 @@ def main():
                                         ('/musicrequest', blog.MusicRequest),
                                         ('/addmusic', blog.NewMusicRequest),
                                         ('/uploaddress', blog.UploadDress),
-                                        ('/bridesmaids', blog.BridesMaid),
+                                        ('/bridesmaidcomment', blog.BridesMaidComment),
                                         ('/bridesmaidsvote', blog.BridesMaidVote),
                                         #('/clearrequests', blog.ClearMusic),
                                         ('/addBlogReaction', blog.AddBlogReaction),

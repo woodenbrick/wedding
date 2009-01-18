@@ -109,6 +109,16 @@ class PageHandle(BaseRequestHandler):
       }
     self.generate('blog_main.html',template_values)
 
+class BridesMaidComment(BaseRequestHandler):
+  def post(self):
+    name = self.request.get('name')
+    if name == '':
+      name = 'Anonymous'
+    comment = self.request.get('comment')
+    if comment is not None:
+      new_comment = model.BridesMaidComment(name=name, comment=comment)
+      new_comment.put()
+    self.redirect('/albums/boryana.daniel.wedding/BridesmaidDresses')
 
 class UploadDress(BaseRequestHandler):
   """For uploading new images"""
@@ -142,9 +152,7 @@ class UploadDress(BaseRequestHandler):
     
     #self.redirect('/admin_upload_dress')
 
-class BridesMaid(BaseRequestHandler):
-  #img will be stored in /imgs/photo_id
-  pass
+
 class BridesMaidVote(BaseRequestHandler):
   def post(self):
     voter = self.request.get('voter')

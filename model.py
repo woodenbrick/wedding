@@ -45,6 +45,11 @@ class BridesMaidPhoto(db.Model):
     #id = db.IntegerProperty()
     photo_url = db.StringProperty()
 
+class BridesMaidComment(db.Model):
+    name = db.StringProperty()
+    comment = db.StringProperty()
+    date = db.DateTimeProperty(auto_now = True)
+
 class NewPhoto(db.Model):
     photo = db.BlobProperty()
 

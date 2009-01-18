@@ -17,19 +17,25 @@ indexes:
   - name: order
     direction: desc
 
-# Used 5 times in query history.
+# Used 7 times in query history.
 - kind: Archive
   properties:
   - name: date
     direction: desc
 
-# Used 13 times in query history.
+# Used once in query history.
+- kind: BridesMaidComment
+  properties:
+  - name: date
+    direction: desc
+
+# Used 59 times in query history.
 - kind: Feeds
   properties:
   - name: valid
   - name: order
 
-# Used 13 times in query history.
+# Used 59 times in query history.
 - kind: Menu
   properties:
   - name: valid

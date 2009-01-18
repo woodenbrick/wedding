@@ -19,6 +19,7 @@
         <p>
     <div id="albums">
     <table cellspacing="0" border="0" id="albumsTable">
+        <h1>Please vote on the STYLE, not the colour!</h1>
     {% for photo in photos %}
         {% if forloop.counter0|divisibleby:"1"  or forloop.first %}
         <tr>
@@ -79,8 +80,42 @@
           </tr>
         {% endif %}
     {% endfor %}
+    
+        </form>
+
+    </td></tr>
     </table>
-                 
+
+    
     </div>
+    <table cellpadding=10>
+        <tr><td>
+    <div class="commentlabel">
+            <h4> Add comment </h4>
+        </div>
+        <form method=post action='/bridesmaidcomment'method='post'>
+            <div>
+                <label for="name_input"><b>Name</b></label><br />
+    <input id="name_input" name='name' type=text size="30">
+                
+            </div>
+            <div id="blogpost">
+                <label for="text_input"><b>Comment</b></label><br />
+                <textarea name="comment" rows="6" cols="30">
+                </textarea>
+            </div>
+            <br>
+            <input type='submit' value='Post'> <br> <br>
+        </form>
+    </td></tr>
+            {% for comment in comments %}
+    <tr><td>
+            <b>{{comment.name}}</b><br />
+    {{ comment.comment|wordwrap:"7" }}<br />
+    <div class='commentlabel'>
+    <h4>{{ comment.date|timesince}} ago</h4>
+    </div>
+    {% endfor %}
+    </table>
 </div>
 {% endblock %}

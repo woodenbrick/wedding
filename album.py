@@ -158,7 +158,7 @@ class AlbumHandler(BaseRequestHandler):
         
         current_votes = model.BridesMaidVotes.all()
         rating = model.BridesMaidRating.all()
-        
+        comments = model.BridesMaidComment.all().order('-date')
         template_values = {
           'photos': feed_photos.entry,
           'album': album,
@@ -166,6 +166,7 @@ class AlbumHandler(BaseRequestHandler):
           'album_name':album_name,
           'current_votes':current_votes,
           'overall_rating':rating,
+          'comments':comments,
           }
         self.generate('album_view.html',template_values)
 
