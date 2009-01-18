@@ -45,6 +45,8 @@ class BridesMaidPhoto(db.Model):
     #id = db.IntegerProperty()
     photo_url = db.StringProperty()
 
+class NewPhoto(db.Model):
+    photo = db.BlobProperty()
 
 class BridesMaidVotes(db.Model):
     voter = db.StringProperty()

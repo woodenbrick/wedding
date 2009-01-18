@@ -110,21 +110,37 @@ class PageHandle(BaseRequestHandler):
     self.generate('blog_main.html',template_values)
 
 
-class AddNewPhotos(BaseRequestHandler):
-  """For admin to upload new images"""
+class UploadDress(BaseRequestHandler):
+  """For uploading new images"""
   def get(self):
-    photos = model.BridesMaidPhoto().all().order('date')
-    self.response.headers['Content-Type'] = "image/png"
-    #self.response.out.write(photos.photo)
-    template_values = {'photos' : photos }
-    self.generate('admin_upload_dress.html', template_values)
+    self.generate('upload_dress.html')
   
   def post(self):
-    photo = self.request.get('image')
-    new_photo = model.BridesMaidPhoto()
-    new_photo.photo = db.Blob(photo)
+    import gdata.photos.service
+    import gdata.media
+    import gdata.geo
+    import time
+    filename = str(self.request.get('photo'))
+    gd_client = gdata.photos.service.PhotosService()
+    gd_client.email = 'boryana.daniel.wedding@gmail.com'
+    gd_client.password = 'FReNZaL18'
+    gd_client.source = 'danielboryanawedding'
+    gd_client.ProgrammaticLogin()
+    bridesmaid_dresses_id = "5292600333161189617"
+    
+    new_photo = model.NewPhoto()
+    new_photo.photo = db.Blob(open(filename).read())
     new_photo.put()
-    self.redirect('/admin_upload_dress')
+    self.response.headers['content'] = 'image/jpeg'
+
+    self.response.out.write(new_photo.photo)
+    #album_url = '/data/feed/api/user/%s/albumid/%s' % ('default', bridesmaid_dresses_id)
+    #photo = gd_client.InsertPhotoSimple(album_url, time.time(),
+    #                                    'Uploaded using the API', new_photo.photo,
+    #                                    content_type='image/jpeg')
+    
+    
+    #self.redirect('/admin_upload_dress')
 
 class BridesMaid(BaseRequestHandler):
   #img will be stored in /imgs/photo_id

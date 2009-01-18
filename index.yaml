@@ -17,19 +17,19 @@ indexes:
   - name: order
     direction: desc
 
-# Used once in query history.
+# Used 5 times in query history.
 - kind: Archive
   properties:
   - name: date
     direction: desc
 
-# Used 6 times in query history.
+# Used 13 times in query history.
 - kind: Feeds
   properties:
   - name: valid
   - name: order
 
-# Used 6 times in query history.
+# Used 13 times in query history.
 - kind: Menu
   properties:
   - name: valid
@@ -54,7 +54,7 @@ indexes:
   - name: lastCommentedDate
     direction: desc
 
-# Unused in query history -- copied from input.
+# Used once in query history.
 - kind: WeblogReactions
   properties:
   - name: weblog

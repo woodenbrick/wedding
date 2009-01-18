@@ -39,7 +39,7 @@ def main():
                                         ('/create/(blog|page)/*$', blog.AddBlog),
                                         ('/musicrequest', blog.MusicRequest),
                                         ('/addmusic', blog.NewMusicRequest),
-                                        ('/admin_upload_dress', blog.AddNewPhotos),
+                                        ('/uploaddress', blog.UploadDress),
                                         ('/bridesmaids', blog.BridesMaid),
                                         ('/bridesmaidsvote', blog.BridesMaidVote),
                                         #('/clearrequests', blog.ClearMusic),
