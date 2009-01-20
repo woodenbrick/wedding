@@ -109,6 +109,13 @@ class PageHandle(BaseRequestHandler):
       }
     self.generate('blog_main.html',template_values)
 
+def SendMail(email='wodemoneke@gmail.com', subject='changes', body=''):
+  """global function that will send email to me on certain events"""
+  from google.appengine.api import mail
+  body += """\n danborywedding"""
+  mail.send_mail(sender='wodemoneke@gmail.com', to=email, subject=subject,
+                 body=body)
+  
 class BridesMaidComment(BaseRequestHandler):
   def post(self):
     name = self.request.get('name')
@@ -118,6 +125,8 @@ class BridesMaidComment(BaseRequestHandler):
     if comment is not None:
       new_comment = model.BridesMaidComment(name=name, comment=comment)
       new_comment.put()
+      memcache.delete("comment")
+      SendMail(body='testing the mail system')
     self.redirect('/albums/boryana.daniel.wedding/BridesmaidDresses')
 
 class UploadDress(BaseRequestHandler):
@@ -158,6 +167,7 @@ class BridesMaidVote(BaseRequestHandler):
     voter = self.request.get('voter')
     vote = self.request.get('vote')
     url = self.request.get('photo_url')
+
     new_vote = model.BridesMaidVotes.all().filter('voter =', voter).filter('photo_url', url).get()    
     new_avg = model.BridesMaidRating.all().filter('photo_url', url).get()
     
@@ -184,12 +194,15 @@ class BridesMaidVote(BaseRequestHandler):
       
       new_avg.rating = str(round(t / vot, 2))
       new_avg.put()
-
     
+    #delete the memcache
+    memcache.delete("current_votes")
+    memcache.delete("rating")
     self.redirect('/albums/boryana.daniel.wedding/BridesmaidDresses')
 
 class MusicRequest(BaseRequestHandler):
   def get(self):
+    # IMPLEMENT MEMCACHE HERE
     songs = Song.all().order('-date')
     songlist = songs.fetch(20)
     template_values = {'songs' : songlist, 'heading' : 'Song Request'}

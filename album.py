@@ -155,10 +155,23 @@ class AlbumHandler(BaseRequestHandler):
             if album_.name.text == album_name:
                 album = album_
                 break
+        # IMPLEMENT MEMCACHE HERE
+        current_votes = memcache.get("current_votes")
+        rating = memcache.get("rating")
+        comments = memcache.get("comments")
         
-        current_votes = model.BridesMaidVotes.all()
-        rating = model.BridesMaidRating.all()
-        comments = model.BridesMaidComment.all().order('-date')
+        if current_votes is None:
+          current_votes = model.BridesMaidVotes.all()
+          memcache.add("current_votes", current_votes)
+        
+        if rating is None:
+          rating = model.BridesMaidRating.all()
+          memcache.add("rating", rating)
+        
+        if comments is None:
+          comments = model.BridesMaidComment.all().order('-date')
+          memcache.add("comments", comments)
+          
         template_values = {
           'photos': feed_photos.entry,
           'album': album,

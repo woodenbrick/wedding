@@ -17,25 +17,25 @@ indexes:
   - name: order
     direction: desc
 
-# Used 7 times in query history.
+# Unused in query history -- copied from input.
 - kind: Archive
   properties:
   - name: date
     direction: desc
 
-# Used once in query history.
+# Used 6 times in query history.
 - kind: BridesMaidComment
   properties:
   - name: date
     direction: desc
 
-# Used 59 times in query history.
+# Used 6 times in query history.
 - kind: Feeds
   properties:
   - name: valid
   - name: order
 
-# Used 59 times in query history.
+# Used 6 times in query history.
 - kind: Menu
   properties:
   - name: valid
@@ -47,20 +47,20 @@ indexes:
   - name: date
     direction: desc
 
-# Used 2 times in query history.
+# Unused in query history -- copied from input.
 - kind: Weblog
   properties:
   - name: entrytype
   - name: date
     direction: desc
 
-# Used once in query history.
+# Unused in query history -- copied from input.
 - kind: Weblog
   properties:
   - name: lastCommentedDate
     direction: desc
 
-# Used once in query history.
+# Unused in query history -- copied from input.
 - kind: WeblogReactions
   properties:
   - name: weblog
