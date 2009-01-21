@@ -126,7 +126,8 @@ class BridesMaidComment(BaseRequestHandler):
       new_comment = model.BridesMaidComment(name=name, comment=comment)
       new_comment.put()
       memcache.delete("comment")
-      SendMail(body='testing the mail system')
+      SendMail(subject="New email from %s" % name, body="""%s left this comment:\n
+               %s""" % (name, comment))
     self.redirect('/albums/boryana.daniel.wedding/BridesmaidDresses')
 
 class UploadDress(BaseRequestHandler):
@@ -203,8 +204,11 @@ class BridesMaidVote(BaseRequestHandler):
 class MusicRequest(BaseRequestHandler):
   def get(self):
     # IMPLEMENT MEMCACHE HERE
-    songs = Song.all().order('-date')
-    songlist = songs.fetch(20)
+    songslist = memcache.get("songs")
+    if songlist is None:
+      songs = Song.all().order('-date')
+      songlist = songs.fetch(20)
+      memcache.add("songs", songlist)
     template_values = {'songs' : songlist, 'heading' : 'Song Request'}
     if self.request.get('error') == '1':
       template_values['error'] = 'At the very least, I need the title of the song, or an artist.'
@@ -232,6 +236,7 @@ class NewMusicRequest(BaseRequestHandler):
       #  song_url = self.get_song_url(title, artist)
       song = Song(artist=artist, title=title, requested_by = requested_by)#, url=song_url)
       song.put()
+      memcache.delete("songs")
       self.redirect('/musicrequest')
       
   def get_song_url(self, title, artist):

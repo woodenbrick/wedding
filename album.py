@@ -155,7 +155,7 @@ class AlbumHandler(BaseRequestHandler):
             if album_.name.text == album_name:
                 album = album_
                 break
-        # IMPLEMENT MEMCACHE HERE
+
         current_votes = memcache.get("current_votes")
         rating = memcache.get("rating")
         comments = memcache.get("comments")
