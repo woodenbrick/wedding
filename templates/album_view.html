@@ -36,17 +36,11 @@
                  </td><td>Vote!
                  <form action='/bridesmaidsvote' method='post'>
                     <select name='voter'>
-                        <option value='Boryana'>Boryana</option>
-                        <option value='Maria'>Maria</option>
-                        <option value='Maggie'>Maggie</option>
-                        <option value='Tilly'>Tilly</option>
-                        <option value='Lily'>Lily</option>
-                        <option value='Buzz'>Buzz</option>
-                        <option value='Daisy'>Daisy</option>
-                        <option value='Kamelia'>Kamelia</option>
-                        <option value='Pinkie'>Pinkie</option>
+                        {% for voter in allowed_voters %}
+                        <option {% ifequal voter last_voter %}selected="yes" {% endifequal %} value='{{voter}}'>{{voter}}</option>
+                        {% endfor %}
                     </select>
-                    <br />
+                    <br />add it to the array of allowed useers eg. 'buzz selected'
                     <select name='vote'>
                         <option value=5>5</option>
                         <option value=4>4</option>

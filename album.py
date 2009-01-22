@@ -171,6 +171,14 @@ class AlbumHandler(BaseRequestHandler):
         if comments is None:
           comments = model.BridesMaidComment.all().order('-date')
           memcache.add("comments", comments)
+        
+        allowed_voters = ['Boryana', 'Maria', 'Maggie', 'Tilly', 'Buzz', 'Daisy',
+                          'Lily', 'Kamelia', 'Pinkie']
+        last_voter = memcache.get("last_voter")
+        if last_voter is None:
+          last_voter = model.BridesMaidVotes.all().order('-vote_date').get()
+          if last_voter is not None:
+            memcache.add("last_voter", last_voter.voter)
           
         template_values = {
           'photos': feed_photos.entry,
@@ -180,6 +188,8 @@ class AlbumHandler(BaseRequestHandler):
           'current_votes':current_votes,
           'overall_rating':rating,
           'comments':comments,
+          'last_voter':last_voter,
+          'allowed_voters':allowed_voters,
           }
         self.generate('album_view.html',template_values)
 

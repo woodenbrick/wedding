@@ -47,7 +47,7 @@ class BridesMaidPhoto(db.Model):
 
 class BridesMaidComment(db.Model):
     name = db.StringProperty()
-    comment = db.StringProperty()
+    comment = db.StringProperty(multiline=True)
     date = db.DateTimeProperty(auto_now = True)
 
 class NewPhoto(db.Model):
@@ -57,6 +57,7 @@ class BridesMaidVotes(db.Model):
     voter = db.StringProperty()
     photo_url = db.StringProperty()
     vote = db.IntegerProperty()
+    vote_date = db.DateTimeProperty(auto_now=True)
     
 class BridesMaidRating(db.Model):
     photo_url = db.StringProperty()
