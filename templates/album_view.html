@@ -37,7 +37,7 @@
                  <form action='/bridesmaidsvote' method='post'>
                     <select name='voter'>
                         {% for voter in allowed_voters %}
-                        <option {% ifequal voter last_voter %}selected="selected" {% endifequal %} value='{{voter}}'>{{voter}}</option>
+                        <option{% ifequal voter last_voter %} selected{% endifequal %} value='{{voter}}'>{{voter}}</option>
                         {% endfor %}
                     </select>
                     <br />

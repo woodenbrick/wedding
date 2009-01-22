@@ -177,8 +177,7 @@ class AlbumHandler(BaseRequestHandler):
         last_voter = memcache.get("last_voter")
         if last_voter is None:
           last_voter = model.BridesMaidVotes.all().order('-vote_date').get()
-          if last_voter is not None:
-            memcache.add("last_voter", last_voter.voter)
+          memcache.add("last_voter", last_voter.voter)
           
         template_values = {
           'photos': feed_photos.entry,

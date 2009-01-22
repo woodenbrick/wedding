@@ -223,9 +223,7 @@ class BridesMaidVote(BaseRequestHandler):
     #delete the memcache
     memcache.delete("current_votes")
     memcache.delete("rating")
-    last_voter = memcache.get("last_voter")
-    if last_voter is not voter:
-      memcache.delete("last_voter")
+    last_voter = memcache.set("last_voter", voter)
     self.redirect('/albums/boryana.daniel.wedding/BridesmaidDresses')
 
 class MusicRequest(BaseRequestHandler):
