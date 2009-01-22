@@ -37,7 +37,7 @@
                  <form action='/bridesmaidsvote' method='post'>
                     <select name='voter'>
                         {% for voter in allowed_voters %}
-                        <option {% ifequal voter last_voter %}selected="yes" {% endifequal %} value='{{voter}}'>{{voter}}</option>
+                        <option {% ifequal voter last_voter %}selected="selected" {% endifequal %} value='{{voter}}'>{{voter}}</option>
                         {% endfor %}
                     </select>
                     <br />
@@ -57,8 +57,8 @@
                  <h1>Current votes:</h1>
                  {% for vote in current_votes %}
                  {% ifequal vote.photo_url photo.content.src %}
-                 
-                 {{vote.voter}} : {{vote.vote}}<br />
+                 <span align='right'>
+                 {{vote.voter}} : {{vote.vote}}<br /></span>
                  {% endifequal %}
                  {% endfor %}
                  {% endif %}
@@ -66,8 +66,9 @@
                  
                  {% for rating in overall_rating %}
                  {% ifequal photo.content.src rating.photo_url %}
-                 <td><h1>Overall Rating:</h1>
+                 <td>Overall Rating:
                  {{rating.rating}}
+                 Current Rank: {{rating.current_rank}}
                  </td>
                  {% endifequal %}
                  {% endfor %}

@@ -62,7 +62,7 @@ class BridesMaidVotes(db.Model):
 class BridesMaidRating(db.Model):
     photo_url = db.StringProperty()
     rating = db.StringProperty()
-    
+    current_rank = db.IntegerProperty()
     
 class Tag(db.Model):
     tag = db.StringProperty(multiline=False)

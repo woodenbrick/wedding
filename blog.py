@@ -196,6 +196,30 @@ class BridesMaidVote(BaseRequestHandler):
       new_avg.rating = str(round(t / vot, 2))
       new_avg.put()
     
+    #redo the rankings
+    photos = model.BridesMaidRating.all().order('-rating')
+    #rank = 1
+    #old_rating = None
+    #for photo in photos:
+    #  photo.current_rank = rank
+    #  photo.put()
+    #  if not old_rating == photo.rating:
+    #    rank += 1
+    #  old_rating = photo.rating
+
+    old_rating = None
+    rank = 0
+    counter = 1
+    for photo in photos:
+      if float(photo.rating) == old_rating:
+        counter += 1
+      else:
+        old_rating = float(photo.rating)
+        rank += counter
+        counter = 1
+      photo.current_rank = rank
+      photo.put()
+
     #delete the memcache
     memcache.delete("current_votes")
     memcache.delete("rating")
