@@ -226,6 +226,14 @@ class BridesMaidVote(BaseRequestHandler):
     last_voter = memcache.set("last_voter", voter)
     self.redirect('/albums/boryana.daniel.wedding/BridesmaidDresses')
 
+class FullMusicList(BaseRequestHandler):
+  def get(self):
+    full_list = memcache.get("songs_full_list")
+    if full_list is None:
+      full_list = Song.all().order('artist')
+    template_values = {'songs' : full_list}
+    self.generate('full_music_list.html', template_values)
+
 class MusicRequest(BaseRequestHandler):
   def get(self):
     # IMPLEMENT MEMCACHE HERE
@@ -234,8 +242,7 @@ class MusicRequest(BaseRequestHandler):
       songs = Song.all().order('-date')
       songlist = songs.fetch(20)
       memcache.add("songs", songlist)
-    template_values = {'songs' : songlist, 'heading' : 'Song Request', 'row1':'grey',
-                       'row2':'white'}
+    template_values = {'songs' : songlist, 'heading' : 'Song Request'}
     if self.request.get('error') == '1':
       template_values['error'] = 'At the very least, I need the title of the song, or an artist.'
     self.generate('music.html', template_values)

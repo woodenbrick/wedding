@@ -42,6 +42,7 @@ def main():
                                         ('/uploaddress', blog.UploadDress),
                                         ('/bridesmaidcomment', blog.BridesMaidComment),
                                         ('/bridesmaidsvote', blog.BridesMaidVote),
+                                        ('/full_music_list', blog.FullMusicList),
                                         #('/clearrequests', blog.ClearMusic),
                                         ('/addBlogReaction', blog.AddBlogReaction),
                                         ('/edit/(blog|page)/(.*)/*$', blog.EditBlog),
