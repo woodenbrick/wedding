@@ -207,12 +207,13 @@ class BridesMaidVote(BaseRequestHandler):
 class MusicRequest(BaseRequestHandler):
   def get(self):
     # IMPLEMENT MEMCACHE HERE
-    songslist = memcache.get("songs")
+    songlist = memcache.get("songs")
     if songlist is None:
       songs = Song.all().order('-date')
       songlist = songs.fetch(20)
       memcache.add("songs", songlist)
-    template_values = {'songs' : songlist, 'heading' : 'Song Request'}
+    template_values = {'songs' : songlist, 'heading' : 'Song Request', 'row1':'grey',
+                       'row2':'white'}
     if self.request.get('error') == '1':
       template_values['error'] = 'At the very least, I need the title of the song, or an artist.'
     self.generate('music.html', template_values)
