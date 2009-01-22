@@ -53,12 +53,13 @@
                 </form>
                 </td>
                  <td>
+                <div align='right'>
                  {% if current_votes %}
                  <h1>Current votes:</h1>
                  {% for vote in current_votes %}
                  {% ifequal vote.photo_url photo.content.src %}
-                 <span align='right'>
-                 {{vote.voter}} : {{vote.vote}}<br /></span>
+
+                 {{vote.voter}} : {{vote.vote}}<br />
                  {% endifequal %}
                  {% endfor %}
                  {% endif %}
@@ -98,7 +99,7 @@
     <input id="name_input" name='name' type=text size="30">
                 
             </div>
-            <div id="blogpost">
+            <div id="blogpost"><div>
                 <label for="text_input"><b>Comment</b></label><br />
                 <textarea name="comment" rows="6" cols="30">
                 </textarea>
@@ -108,12 +109,13 @@
         </form>
     </td></tr>
             {% for comment in comments %}
-    <tr><td>
+    <tr><td class='{% cycle white,grey %}'>
             <b>{{comment.name}}</b><br />
     {{ comment.comment|wordwrap:"7" }}<br />
     <div class='commentlabel'>
     <h4>{{ comment.date|timesince}} ago</h4>
     </div>
+    </td></tr>
     {% endfor %}
     </table>
 </div>

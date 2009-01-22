@@ -23,7 +23,7 @@ indexes:
   - name: date
     direction: desc
 
-# Used 36 times in query history.
+# Used 38 times in query history.
 - kind: BridesMaidComment
   properties:
   - name: date
@@ -35,19 +35,19 @@ indexes:
   - name: rating
     direction: desc
 
-# Used 20 times in query history.
+# Used 21 times in query history.
 - kind: BridesMaidVotes
   properties:
   - name: vote_date
     direction: desc
 
-# Used 79 times in query history.
+# Used 81 times in query history.
 - kind: Feeds
   properties:
   - name: valid
   - name: order
 
-# Used 79 times in query history.
+# Used 81 times in query history.
 - kind: Menu
   properties:
   - name: valid
