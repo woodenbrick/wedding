@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block blog %}
+    <div id=bloglist>
+    <h1>Full list of song requests (so far...)</h1>
+    {% if songs %}
+    <table>
+    <tr><th class='heading'>Artist</th>
+    <th class='heading'>Song</th>
+    <th class='heading'>Requested by</th></tr>
+    {% for song in songs %}
+    <tr>
+    
+    <td class='{% cycle white,grey %}'>{{song.artist}}</td>
+    <td class='{% cycle white,grey %}'>{{ song.title}}</td>
+    <td class='{% cycle white,grey %}'>{{song.requested_by}}</td></tr>
+    
+    {% endfor %}
+    </table>
+    {% endif %}
+   
+    <a href='/musicrequest'>Back to request page</a>
+    </div>
+
+{% endblock %}
+

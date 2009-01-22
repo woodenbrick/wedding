@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+
+{% block title %}{{title}} - {{tag}}{% endblock %}
+
+
+{% block blog %}
+    
+    <div id=bloglist>
+
+    <div id='musiccontainer'>
+            <form action="/admin_upload_dress" enctype="multipart/form-data" method="post">
+File: <input type='FILE' name='image'>
+<input type='SUBMIT' value='Request!'>
+
+    </form>
+            {% for photo in photos %}
+            <img src='img?img_id={{photo.key}}'>
+            {{photo.photo}} - {{photo.date}}
+            {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

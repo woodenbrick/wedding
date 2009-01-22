@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+
+{% block title %}{{title}} - {{tag}}{% endblock %}
+
+
+{% block blog %}
+    
+    <div id=bloglist>
+    <h1>Please let us know your music requests for the wedding!<br />
+    Try and keep it reasonable (No Cradle of Filth Daisy!)
+    </h1>
+    {% if error %}
+    <p><span class=errormusic>Error: {{error}}</span></p>
+    {% endif %}
+    <div id='musiccontainer'>
+    <form action='/addmusic' method='post'>
+        <table>
+        <tr><td>Title:</td><td><input type='TEXT' name='title'></td></tr>
+        <tr><td>Artist:</td><td><input type='TEXT' name='artist'></td></tr>
+        <tr><td>Your name:</td><td><input type='TEXT' name='requested_by'> (blank for anon ;)</td></tr>
+        <tr><td></td><td><input type='SUBMIT' value='Request!'></td></tr>
+        </table>
+    </form>
+    </div>
+    {% if songs %}
+    <table>
+    <tr><th class='heading'>Song</th>
+    <th class='heading'>Requested by</th></tr>
+    {% for song in songs %}
+    <tr>
+    
+    <td class='{% cycle white,grey %}'>{{ song.title}} by {{song.artist}}</td>
+    <td class='{% cycle white,grey %}'>{{song.requested_by}}</td></tr>
+    
+    {% endfor %}
+    </table>
+    {% endif %}
+   
+    <a href='/full_music_list'>Full list</a>
+    </div>
+
+{% endblock %}
+

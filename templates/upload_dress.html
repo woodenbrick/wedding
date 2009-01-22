@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+
+{% block title %}{{title}} - {{tag}}{% endblock %}
+
+
+{% block blog %}
+    
+    <div id=bloglist>
+    <h1>Please let us know your music requests for the wedding!<br />
+    Try and keep it reasonable (No Cradle of Filth Daisy!)
+    </h1>
+    <div id='musiccontainer'>
+    <form action='/uploaddress' enctype="multipart/form-data" method='post'>
+        <table>
+        <tr><td>Photo:</td><td><input type='file' name='photo'></td></tr>
+        <tr><td></td><td><input type='SUBMIT' value='Upload'></td></tr>
+        </table>
+    </form>
+    </div>
+    {% if songs %}
+    <h1>Recently requested songs:</h1>
+    <table>
+    {% for song in songs %}
+    <tr>
+    
+    <td>{{ song.title}} by {{song.artist}}</td>
+    {% if song.requested_by %}
+    <td>(Requested by {{song.requested_by}})</td>{% endif %}</tr>
+    
+    {% endfor %}
+    </table>
+    {% endif %}
+   
+
+    </div>
+
+{% endblock %}
+

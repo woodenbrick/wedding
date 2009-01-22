@@ -1,0 +1,22 @@
+<div id="tagclound">
+    <div>
+        
+            Request a song for the wedding:
+            <form action='/songrequest' method='post'>
+                    Title: <input type='TEXT' name='title' size=15>
+                    Artist: <input type='TEXT' name='artist' size=15>
+                    <input type='SUBMIT' value='Request!'>
+                </table>
+            </form>
+            Recent requests:
+            {{tit}}
+            {% for song in songs %}
+            {{song.title}} - {{song.artist}}
+            {% endfor %}
+       
+    </div>
+    <div id="delicious">
+        <div class="cloud">
+        </div>
+    </div>
+</div>
