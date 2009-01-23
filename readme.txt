@@ -1,3 +1,7 @@
+This is a modified version of cpedialog, available at http://code.google.com/p/cpedialog/
+
+
+
 cpedialog - python blog for appengine.
 ======================================
 version 1.0, August 28, 2008

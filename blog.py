@@ -1,5 +1,13 @@
 # !/usr/bin/env python
 #
+#THIS VERSION HAS BEEN MODIFED BY Daniel Woodhouse
+#wodemoneke@gmail.com
+#Source avaiable via git repo:
+#git clone git://github.com/woodenbrick/cpe_wedding.git 
+#Original is available at http://code.google.com/p/cpedialog/
+#
+#
+#
 # Copyright 2008 CPedia.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
