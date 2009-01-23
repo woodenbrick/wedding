@@ -4,7 +4,7 @@
     <div id=bloglist>
     {% if page %}
       {% for blog in page.object_list %}
-        <H2 class=date-header> {{blog.date|date:"l, F m, Y"}} </H2>
+        <H2 class=date-header> {{blog.date|date:"l dS o\f F, Y"}}</H2>
         <DIV class="post">
         <H3 class=post-title>
             <a href="/{{blog.relative_permalink}}">{{blog.title}}</a>

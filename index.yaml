@@ -17,43 +17,43 @@ indexes:
   - name: order
     direction: desc
 
-# Used 68 times in query history.
+# Used 3 times in query history.
 - kind: Archive
   properties:
   - name: date
     direction: desc
 
-# Used 50 times in query history.
+# Unused in query history -- copied from input.
 - kind: BridesMaidComment
   properties:
   - name: date
     direction: desc
 
-# Used 22 times in query history.
+# Unused in query history -- copied from input.
 - kind: BridesMaidRating
   properties:
   - name: rating
     direction: desc
 
-# Used 22 times in query history.
+# Unused in query history -- copied from input.
 - kind: BridesMaidVotes
   properties:
   - name: vote_date
     direction: desc
 
-# Used 126 times in query history.
+# Used 11 times in query history.
 - kind: Feeds
   properties:
   - name: valid
   - name: order
 
-# Used 126 times in query history.
+# Used 11 times in query history.
 - kind: Menu
   properties:
   - name: valid
   - name: order
 
-# Used 5 times in query history.
+# Unused in query history -- copied from input.
 - kind: Song
   properties:
   - name: date
@@ -78,7 +78,7 @@ indexes:
   - name: permalink
     direction: desc
 
-# Used 6 times in query history.
+# Used 8 times in query history.
 - kind: WeblogReactions
   properties:
   - name: weblog

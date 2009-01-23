@@ -13,7 +13,7 @@
 <div class="yui-g">
 <div id="blogview">
 <div>
-<H2 class=date-header> {{blog.date|date:"l, F m, Y"}} </H2>
+<H2 class=date-header> {{blog.date|date:"l dS o\f F, Y"}} </H2>
 <div class="post">
     <H3 class=post-title>
         <a href="/{{blog.relative_permalink}}">{{blog.title}}</a>
@@ -68,10 +68,7 @@
                 {% if reaction.authorWebsite %}
                 </a>
                 {% endif%}
-                {{reaction.date|date:"Y-m-d H:i"}} | 
-                {% ifnotequal reaction.userIp Null %}
-                IP:{{reaction.userIp}}
-                {% endifnotequal %}
+                {{reaction.date|timesince}} ago
             </p>
             <DIV class=post-body>
                 <img height="32" width="32" class="avatar" src="{%if not reaction.author %}{{reaction.authorEmail|gravatar}}{%else%}{{reaction.author.email|gravatar}}{% endif %}"/>
