@@ -246,11 +246,14 @@ class MusicRequest(BaseRequestHandler):
   def get(self):
     # IMPLEMENT MEMCACHE HERE
     songlist = memcache.get("songs")
+    ip = self.request.get('REMOTE_ADDR')
+    previous_user = memcache.get(ip)
+   
     if songlist is None:
       songs = Song.all().order('-date')
       songlist = songs.fetch(20)
       memcache.add("songs", songlist)
-    template_values = {'songs' : songlist, 'heading' : 'Song Request'}
+    template_values = {'songs' : songlist, 'heading' : 'Song Request', 'previous_user' : previous_user}
     if self.request.get('error') == '1':
       template_values['error'] = 'At the very least, I need the title of the song, or an artist.'
     self.generate('music.html', template_values)
@@ -260,6 +263,25 @@ class NewMusicRequest(BaseRequestHandler):
     artist = cgi.escape(self.request.get('artist'))
     title = cgi.escape(self.request.get('title'))
     requested_by = cgi.escape(self.request.get('requested_by'))
+    ip = self.request.get('REMOTE_ADDR')
+    cached = True
+    previous_user = memcache.get(ip)
+    if previous_user is None:
+      cached = False
+      previous_user = model.SongRequester.all().filter('ip = ', ip).get()
+    if previous_user is None:
+      previous_user = model.SongRequester()
+      previous_user.username = requested_by
+      previous_user.ip = ip
+      previous_user.put()
+    else:
+      if previous_user.username != requested_by:
+        previous_user.username = requested_by
+        previous_user.put()
+        cached = False
+    if cached is False:
+        memcache.set(ip, previous_user)
+     
     if title == '' and artist == '':
       self.redirect('/musicrequest?error=1')
     else:

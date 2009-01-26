@@ -50,6 +50,10 @@ class Song(db.Model):
     requested_by = db.StringProperty()
     #url = db.StringProperty()
     
+class SongRequester(db.Model):
+    ip = db.StringProperty()
+    username = db.StringProperty()
+
 class BridesMaidPhoto(db.Model):
     #id = db.IntegerProperty()
     photo_url = db.StringProperty()
