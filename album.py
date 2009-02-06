@@ -198,7 +198,7 @@ class AlbumHandler(BaseRequestHandler):
           'last_voter':last_voter,
           'allowed_voters':allowed_voters,
           }
-        template_values = { }
+        template_values = {'comments':comments, }
         self.generate('album_view.html',template_values)
 
 #deprecated
