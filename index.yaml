@@ -17,7 +17,7 @@ indexes:
   - name: order
     direction: desc
 
-# Used 2 times in query history.
+# Used once in query history.
 - kind: Archive
   properties:
   - name: date
@@ -41,19 +41,19 @@ indexes:
   - name: vote_date
     direction: desc
 
-# Used 2 times in query history.
+# Used once in query history.
 - kind: Feeds
   properties:
   - name: valid
   - name: order
 
-# Used 2 times in query history.
+# Used once in query history.
 - kind: Menu
   properties:
   - name: valid
   - name: order
 
-# Used once in query history.
+# Unused in query history -- copied from input.
 - kind: Song
   properties:
   - name: date
