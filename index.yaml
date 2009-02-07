@@ -10,14 +10,14 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Unused in query history -- copied from input.
+# Used 3 times in query history.
 - kind: Album
   properties:
   - name: valid
   - name: order
     direction: desc
 
-# Used once in query history.
+# Used 2 times in query history.
 - kind: Archive
   properties:
   - name: date
@@ -35,19 +35,19 @@ indexes:
   - name: rating
     direction: desc
 
-# Unused in query history -- copied from input.
+# Used once in query history.
 - kind: BridesMaidVotes
   properties:
   - name: vote_date
     direction: desc
 
-# Used once in query history.
+# Used 5 times in query history.
 - kind: Feeds
   properties:
   - name: valid
   - name: order
 
-# Used once in query history.
+# Used 5 times in query history.
 - kind: Menu
   properties:
   - name: valid
@@ -59,7 +59,7 @@ indexes:
   - name: date
     direction: desc
 
-# Used 2 times in query history.
+# Used 3 times in query history.
 - kind: Weblog
   properties:
   - name: entrytype
