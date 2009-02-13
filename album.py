@@ -166,7 +166,8 @@ class AlbumHandler(BaseRequestHandler):
 
         current_votes = memcache.get("current_votes")
         rating = memcache.get("rating")
-        comments = memcache.get("comments")
+        #comments = memcache.get("comments")
+        comments = model.BridesMaidComment.all().order('-date')
         
         if current_votes is None:
           current_votes = model.BridesMaidVotes.all()
@@ -185,7 +186,8 @@ class AlbumHandler(BaseRequestHandler):
         last_voter = memcache.get("last_voter")
         if last_voter is None:
           last_voter = model.BridesMaidVotes.all().order('-vote_date').get()
-          memcache.add("last_voter", last_voter.voter)
+          if last_voter is not None:
+            memcache.add("last_voter", last_voter.voter)
           
         template_values = {
           'photos': feed_photos.entry,
@@ -198,7 +200,11 @@ class AlbumHandler(BaseRequestHandler):
           'last_voter':last_voter,
           'allowed_voters':allowed_voters,
           }
+<<<<<<< HEAD:album.py
         template_values = {'comments':comments, }
+=======
+
+>>>>>>> attemptedfix:album.py
         self.generate('album_view.html',template_values)
 
 #deprecated
