@@ -200,11 +200,6 @@ class AlbumHandler(BaseRequestHandler):
           'last_voter':last_voter,
           'allowed_voters':allowed_voters,
           }
-<<<<<<< HEAD:album.py
-        template_values = {'comments':comments, }
-=======
-
->>>>>>> attemptedfix:album.py
         self.generate('album_view.html',template_values)
 
 #deprecated
